@@ -1,0 +1,39 @@
+import random
+import time
+
+hidden_topics = ["колір", "число", "настрій", "форма", "звук", "почуття"]
+true_answer = random.choice(hidden_topics)
+
+print("Вгадай те, про що не здогадуєшся.")
+print("Вибери тему: колір, число, настрій, форма, звук, почуття.")
+
+user_topic = input("Що ти хочеш вгадати? ").strip().lower()
+
+attempts = 0
+game_running = True
+hints = ["майже", "зовсім ні", "може бути", "близько", "холодно", "гаряче", "несподівано", "так!", "хмм..."]
+
+while game_running:
+    guess = input("Твоя здогадка: ").strip().lower()
+    attempts += 1
+
+    if not guess.isalpha() or len(guess) < 2:
+        print("Щось дивне ти написав(ла)... Але гаразд.")
+        continue
+
+    if random.random() < 0.3:
+        if guess == true_answer:
+            print(random.choice(["Це воно?", "Точно! Хіба ні?", "Може, ти щось вгадав..."]))
+        else:
+            print(random.choice(["Це воно?", "Точно! Хіба ні?", "Може, ти щось вгадав..."]))
+    else:
+        print(random.choice(hints))
+
+    if random.random() < 0.15 or attempts > 10:
+        print("Гра завершена.")
+        time.sleep(1)
+        if guess == true_answer:
+            print("Можливо, ти був ближче, ніж здається.")
+        else:
+            print("Можливо, ти щось упустив.")
+        game_running = False
