@@ -1,0 +1,49 @@
+import random
+
+a = {
+    "людина": ["живе", "Їсть", "говорить"],
+    "кіт": ["мяукає", "пухнастий"],
+    "дракон": ["вигадане", "має крила"],
+    "гном": ["вигадане", "маленький зріст"],
+    "стул": ["не живе", "має 4 ножки"]
+}
+
+chosen_word, hints = random.choice(list(a.items()))
+
+attempts = 6
+shown_hints = 0
+
+print(" Я загадав когось або щось. Вгадай, хто або що це!")
+while attempts > 0:
+    try:
+        user_input = input("Введи свій варіант: ").strip().lower()
+        if not user_input.isalpha():
+            print("Будь ласка введіть тільки букви: ")
+            continue
+        if user_input == chosen_word:
+            print(random.choice([
+                "Ти вгадав!!!",
+                "Оце так!",
+                "Правильно! Не чекав такого!"
+            ]))
+            break
+        else:
+            attempts -= 1
+            print(random.choice([
+                "Ні, не вгадав.",
+                "Це не те.",
+                "Ще ні."
+            ]))
+
+        if shown_hints < len(hints) and random.choice([True, False]):
+            print(f"Підказка: {hints[shown_hints]}")
+            shown_hints += 1
+
+    except Exception as e:
+        print("⚠️ Сталася помилка:", e)
+
+if attempts == 0:
+    print(random.choice([
+        "Гру закінчено. Це було:",
+        "Ти не вгадав. Правильна відповідь:"
+    ]), chosen_word.upper())
