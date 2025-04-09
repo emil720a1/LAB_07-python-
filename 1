@@ -1,0 +1,34 @@
+import random
+
+a = {
+    "людина": "живе",
+    "Кіт": "живе",
+    "Дракон": "вигадане",
+    "Гном": "вигадане",
+    "Стул": "не живе"
+}
+
+random_key, random_type = random.choice(list(a.items()))
+
+attempts = 5
+
+while attempts>0:
+    try: 
+        guess = input("Введи свій варіант: ").strip().lower()
+        if not guess.isAlpha():
+            print("Будь ласка введіть тільки букви: ")
+            continue
+        if guess==random_key:
+            print("Ти вгадав!!!")
+            break
+        else:
+            attempts-=1
+            print("Ні, це не те.")
+        if attempts == 2:
+            print("Підказка: це", random_type)
+
+    except Exception as e:
+        print("Сталася помилка:", e)
+
+if attempts == 0:
+    print(f"На жаль, ти не вгадав. Це було: {random_key}")
